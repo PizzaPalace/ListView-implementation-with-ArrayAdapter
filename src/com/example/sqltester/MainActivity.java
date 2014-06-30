@@ -16,25 +16,24 @@ import android.widget.ListView;
 public class MainActivity extends Activity {
     
 	ListView listView;
-	DatabaseTools database;
-	
+
+	ArrayList<String> b = new ArrayList<String>();
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+        
+		b.add("Liquorice");
+		b.add("Dairy Milk");
+		b.add("Rice Crispies");
+		b.add("Orange-Mint");
+		b.add("After-Tens");
+		
+		
+		listView = (ListView) findViewById(R.id.list_view);
+		ArrayAdapter adapter = new ArrayAdapter<String>(getApplicationContext(),R.layout.layout_file,b);
+	    listView.setAdapter(adapter);
 	
-		database = new DatabaseTools(getApplicationContext(),null,null,1);
-		
-		ArrayList<String> allData = database.getData();
-		
-		if(allData.isEmpty()){
-			String[] a = {};
-			listView = (ListView) findViewById(R.id.list_view);
-		    ArrayAdapter adapter = new ArrayAdapter<String>(getApplicationContext(),R.layout.layout_file,a);
-			listView.setAdapter(adapter);
-			
-		}
-		
 	}
 
 	@Override
@@ -48,30 +47,10 @@ public class MainActivity extends Activity {
 		
 		 EditText editText = (EditText) findViewById(R.id.edit_text);
 		 String data = editText.getText().toString();
-		 
-		 database.insertData(data);
-		 Log.v("DATABASE",database.getData().toString());
-		 ArrayList<String> allData = database.getData();
-		 
-		 Iterator<String> iterator = allData.iterator();
-		 int index = 0;
-		 int size = allData.size();
-		 String[] a = new String[size];
-		 
-		 while(iterator.hasNext()){
-			 
-			 if(index < size)
-			 a[index] = iterator.next();
-			 
-		 }
-		 ListView listView2 = (ListView) findViewById(R.id.list_view);
-		 //ArrayAdapter adapter = (ArrayAdapter) listView.getAdapter();
-		 ArrayAdapter adapter = new ArrayAdapter<String>(getApplicationContext(),R.layout.layout_file,a);
-			
-		 //adapter.add((String)data);
-		 //adapter.notifyDataSetChanged();
-		 listView2.setAdapter(adapter);
-		 
+		 //b.add(data);
+		 ArrayAdapter adapter = (ArrayAdapter) listView.getAdapter();
+		 adapter.add((String)data);
+		 adapter.notifyDataSetChanged();
 	}
 
 }
