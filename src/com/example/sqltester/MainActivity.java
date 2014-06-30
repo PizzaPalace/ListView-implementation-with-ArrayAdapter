@@ -47,7 +47,9 @@ public class MainActivity extends Activity {
 		
 		 EditText editText = (EditText) findViewById(R.id.edit_text);
 		 String data = editText.getText().toString();
-		 //b.add(data);
+		 // manipulating the data source coupled to the adapter will change the ListView
+		 // in addition to adapter.add((String)data). 
+		 // b.add(data);
 		 ArrayAdapter adapter = (ArrayAdapter) listView.getAdapter();
 		 adapter.add((String)data);
 		 adapter.notifyDataSetChanged();
